@@ -4,3 +4,5 @@ reg add "HKEY_CURRENT_USER\Control Panel\Desktop" /v Wallpaper /t REG_SZ /d D:\a
 RUNDLL32.EXE user32.dll,UpdatePerUserSystemParameters
 Sleep 2
 taskkill /f /im explorer.exe
+Sleep 1
+start explorer.exe
