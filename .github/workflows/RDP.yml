@@ -1,4 +1,4 @@
-name: RDPAprijal
+name: Windows RDP
 
 on: workflow_dispatch
 
