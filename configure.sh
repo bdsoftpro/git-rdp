@@ -28,7 +28,7 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 #install ngrok
 curl https://localtonet.com/download/localtonet-osx-64.zip -o osx-64.zip
 unzip osx-64.zip
-sudo chmod +x localtonet
+sudo chmod +x ./localtonet
 
 #configure ngrok and start it
-localtonet authtoken $3
+./localtonet authtoken $3
