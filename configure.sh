@@ -31,5 +31,4 @@ unzip osx-64.zip
 sudo chmod +x ./localtonet
 
 #configure ngrok and start it
-./localtonet authtoken $3
-./localtonet &
+./localtonet authtoken $3 &
