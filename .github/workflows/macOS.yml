@@ -13,8 +13,8 @@ jobs:
     - name: Setting the environment up.
       env:
         AUTH_TOKEN: "4djOsU1JWf5NzgbPKxlpXq2836wnVZkH7"
-        VNC_USER_PASSWORD: ${{ secrets.VNC_USER_PASSWORD }}
-        VNC_PASSWORD: ${{ secrets.VNC_PASSWORD }}
+        VNC_USER_PASSWORD: "Del674569"
+        VNC_PASSWORD: "Del674569"
       run: source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$AUTH_TOKEN"
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v2
