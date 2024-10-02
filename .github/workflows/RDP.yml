@@ -18,7 +18,7 @@ jobs:
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
-      run: start /min cmd /c .\localtonet\localtonet.exe authtoken $Env:NGROK_AUTH_TOKEN
+      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken $Env:NGROK_AUTH_TOKEN"
       env:
         NGROK_AUTH_TOKEN: "X8AqDRWHpgMJojaEhNzrTBPiwlymdvVtk"
     - name: Activating RDP access.
