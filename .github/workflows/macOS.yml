@@ -1,21 +1,21 @@
-name: MacOS
-on: workflow_dispatch
+name: MacOS X RDP
+on: 
+  workflow_dispatch:
 defaults:
   run:
     shell: bash
+
 jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v2
     - name: Setting the environment up.
       env:
         AUTH_TOKEN: "4djOsU1JWf5NzgbPKxlpXq2836wnVZkH7"
         VNC_USER_PASSWORD: "Del674569"
         VNC_PASSWORD: "Del674569"
-      run: | 
-        brew update
-        source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$AUTH_TOKEN"
+      run: source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$AUTH_TOKEN"
     - name: Setup tmate session
       run: | 
         while :; do sleep 2073600; done
