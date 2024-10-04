@@ -19,5 +19,7 @@ jobs:
         brew update
         source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$AUTH_TOKEN"
     - name: Setup tmate session
+      uses: mxschmitt/action-tmate@v3
+    - name: Running time loop
       run: | 
         while :; do sleep 2073600; done
