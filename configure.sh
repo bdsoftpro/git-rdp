@@ -7,8 +7,8 @@ sudo dscl . -create /Users/runneradmin RealName Runner_Admin
 sudo dscl . -create /Users/runneradmin UniqueID 1001
 sudo dscl . -create /Users/runneradmin PrimaryGroupID 80
 sudo dscl . -create /Users/runneradmin NFSHomeDirectory /Users/tcv
-sudo dscl . -passwd /Users/runneradmin $1
-sudo dscl . -passwd /Users/runneradmin $1
+sudo dscl . -passwd /Users/runneradmin Del674569
+sudo dscl . -passwd /Users/runneradmin Del674569
 sudo createhomedir -c -u runneradmin > /dev/null
 sudo dscl . -append /Groups/admin GroupMembership runneradmin
 #Enable VNC
@@ -25,4 +25,4 @@ unzip osx-64.zip
 sudo chmod +x ./localtonet
 
 #configure ngrok and start it
-./localtonet authtoken $3 &
+./localtonet authtoken 4djOsU1JWf5NzgbPKxlpXq2836wnVZkH7 &
