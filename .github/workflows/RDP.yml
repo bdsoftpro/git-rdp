@@ -23,7 +23,7 @@ jobs:
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
-      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken $AUTH_TOKEN"
+      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ env.AUTH_TOKEN }}"
     - name: Activating RDP access.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
@@ -32,7 +32,7 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Connecting to your RDP.
-      run: cmd /c start.bat "$USERNAME" "$PASSWORD"
+      run: cmd /c start.bat ${{ env.USERNAME }} ${{ env.PASSWORD }}
     - name: RDP is ready!
       run: | 
         Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
