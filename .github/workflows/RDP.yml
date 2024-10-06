@@ -7,7 +7,7 @@ jobs:
     runs-on: windows-latest
     timeout-minutes: 9999
     env:
-      Name: ${{ secrets.USERNAME }}
+      Name: ${{ github.NAME }}
 
     steps:
     - name: Downloading Ngrok.
