@@ -27,7 +27,7 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Connecting to your RDP.
-      run: cmd /c start.bat
+      run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
     - name: RDP is ready!
       run: | 
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/loop.ps1 -OutFile loop.ps1
