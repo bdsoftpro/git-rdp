@@ -18,12 +18,9 @@ jobs:
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
-      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken $Env:NGROK_AUTH_TOKEN"
-      env:
-        NGROK_AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
+      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN }}"
     - name: Activating RDP access.
       run: | 
-        Write-Output $Env:NGROK_AUTH_TOKEN
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
