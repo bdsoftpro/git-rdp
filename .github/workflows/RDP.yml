@@ -14,7 +14,6 @@ jobs:
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
-        NGROK_AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
