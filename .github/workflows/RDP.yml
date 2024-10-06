@@ -11,7 +11,6 @@ jobs:
     steps:
     - name: Downloading Ngrok.
       run: | 
-        Write-Output $Env:NGROK_AUTH_TOKEN
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
@@ -24,6 +23,7 @@ jobs:
         NGROK_AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
     - name: Activating RDP access.
       run: | 
+        Write-Output $Env:NGROK_AUTH_TOKEN
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
         Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
