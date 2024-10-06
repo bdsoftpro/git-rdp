@@ -2,11 +2,6 @@ name: Windows RDP
 
 on: workflow_dispatch
 
-env:
-    AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
-    USERNAME: ${{ secrets.USERNAME }}
-    PASSWORD: ${{ secrets.PASSWORD }}
-
 jobs:
   build:
 
@@ -23,7 +18,7 @@ jobs:
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
-      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ env.AUTH_TOKEN }}"
+      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN }}"
     - name: Activating RDP access.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
@@ -32,7 +27,7 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Connecting to your RDP.
-      run: cmd /c start.bat ${{ env.USERNAME }} ${{ env.PASSWORD }}
+      run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
     - name: RDP is ready!
     - name: Time Counter
-      run: Start-Sleep -Seconds 21600
+      run: Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
