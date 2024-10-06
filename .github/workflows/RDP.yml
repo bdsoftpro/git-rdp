@@ -8,9 +8,11 @@ jobs:
     timeout-minutes: 9999
 
     steps:
+    - name: Set Envirronment Variable
+      env:
+        Name: ${{ secrets.USERNAME }}
     - name: Downloading Ngrok.
       run: | 
-        Write-Output $Env:NGROK_AUTH_TOKEN
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
@@ -26,6 +28,7 @@ jobs:
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
+        echo "$env:Name"
     - name: Connecting to your RDP.
       run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
     - name: Time Counter
