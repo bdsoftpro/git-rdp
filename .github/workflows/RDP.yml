@@ -2,6 +2,11 @@ name: Windows RDP
 
 on: workflow_dispatch
 
+env:
+    AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
+    USERNAME: ${{ secrets.USERNAME }}
+    PASSWORD: ${{ secrets.PASSWORD }}
+
 jobs:
   build:
 
@@ -9,11 +14,6 @@ jobs:
     timeout-minutes: 9999
 
     steps:
-    - name: Set Envirronment Variable
-      env:
-        AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
-        USERNAME: ${{ secrets.USERNAME }}
-        PASSWORD: ${{ secrets.PASSWORD }}
     - name: Downloading Ngrok.
       run: | 
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
