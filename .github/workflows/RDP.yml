@@ -10,7 +10,8 @@ jobs:
 
     steps:
     - name: Downloading Ngrok.
-      run: |
+      run: | 
+        Write-Output $Env:NGROK_AUTH_TOKEN
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
