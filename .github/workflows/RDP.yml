@@ -35,5 +35,4 @@ jobs:
       run: cmd /c start.bat $USERNAME $PASSWORD
     - name: RDP is ready!
       run: | 
-        Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/loop.ps1 -OutFile loop.ps1
-        ./loop.ps1
+        Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
