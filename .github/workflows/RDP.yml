@@ -4,17 +4,17 @@ on: workflow_dispatch
 
 jobs:
   build:
+
     runs-on: windows-latest
     timeout-minutes: 9999
 
     steps:
     - name: Downloading Ngrok.
       run: | 
-        Write-Output $Env:NGROK_AUTH_TOKEN
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
-        NGROK_AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
+        Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.bat -OutFile wallpaper.bat
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
@@ -29,3 +29,5 @@ jobs:
     - name: Connecting to your RDP.
       run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
     - name: RDP is ready!
+    - name: Time Counter
+      run: Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
