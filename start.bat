@@ -15,5 +15,6 @@ ICACLS C:\Windows\installer /grant %1:F >nul
 echo Installation Successful! If RDP is Dead, Please Rebuild Again, Ok!
 echo Username: %1
 echo Password: %2
+echo Uri %3
 echo Md Delwar Hossain
 ping -n 10 127.0.0.1 >nul
