@@ -32,7 +32,7 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Connecting to your RDP.
-      run: cmd /c start.bat $USERNAME $PASSWORD
+      run: cmd /c start.bat "$USERNAME" "$PASSWORD"
     - name: RDP is ready!
       run: | 
         Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
