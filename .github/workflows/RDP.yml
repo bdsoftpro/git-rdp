@@ -6,13 +6,11 @@ jobs:
   build:
     runs-on: windows-latest
     timeout-minutes: 9999
-    env:
-      Name: ${{ github.NAME }}
-
+    
     steps:
     - name: Downloading Ngrok.
       run: | 
-        echo ${{env.Name}}
+        echo ${{ github.NAME }}
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/start.bat -OutFile start.bat
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.png -OutFile wallpaper.png
