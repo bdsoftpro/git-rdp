@@ -34,5 +34,5 @@ jobs:
     - name: Connecting to your RDP.
       run: cmd /c start.bat ${{ env.USERNAME }} ${{ env.PASSWORD }}
     - name: RDP is ready!
-      run: | 
-        Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
+    - name: Time Counter
+      run: Start-Sleep -Seconds 21600
