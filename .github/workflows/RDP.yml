@@ -1,7 +1,9 @@
 name: Windows RDP
 
 on: workflow_dispatch
-
+env:
+  Name: administrator
+  Pwd: Del674569
 jobs:
   build:
     runs-on: windows-latest
@@ -16,7 +18,6 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.bat -OutFile wallpaper.bat
     - name: Extracting Ngrok Files.
       run: | 
-        echo "${{ vars.NAME }}"
         Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
       run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN }}"
@@ -29,6 +30,6 @@ jobs:
         copy wallpaper.bat D:\a\wallpaper.bat
         echo "${{env.Name}}"
     - name: Connecting to your RDP.
-      run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
+      run: cmd /c start.bat ${{ env.Name }} ${{ env.Pwd }}
     - name: Time Counter
       run: Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
