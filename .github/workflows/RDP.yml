@@ -4,7 +4,10 @@ on: workflow_dispatch
 
 jobs:
   build:
+
     runs-on: windows-latest
+    timeout-minutes: 9999
+
     steps:
     - name: Downloading Ngrok.
       run: | 
@@ -14,17 +17,3 @@ jobs:
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/wallpaper.bat -OutFile wallpaper.bat
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
-    - name: Connecting to your Ngrok account.
-      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN }}"
-    - name: Activating RDP access.
-      run: | 
-        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
-        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
-        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
-        copy wallpaper.png D:\a\wallpaper.png
-        copy wallpaper.bat D:\a\wallpaper.bat
-    - name: Connecting to your RDP.
-      run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
-    - name: RDP is ready!
-    - name: Time Counter
-      run: Do {Start-Sleep -Seconds 10;} While (2 -eq 2)
