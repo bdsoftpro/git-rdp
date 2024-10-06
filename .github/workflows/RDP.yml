@@ -9,6 +9,11 @@ jobs:
     timeout-minutes: 9999
 
     steps:
+    - name: Set Envirronment Variable
+      env:
+        AUTH_TOKEN: ${{ secrets.LOCALTONET_AUTH_TOKEN }}
+        USERNAME: ${{ secrets.USERNAME }}
+        PASSWORD: ${{ secrets.PASSWORD }}
     - name: Downloading Ngrok.
       run: | 
         Invoke-WebRequest https://localtonet.com/download/localtonet-win-64.zip -OutFile localtonet.zip
@@ -18,7 +23,7 @@ jobs:
     - name: Extracting Ngrok Files.
       run: Expand-Archive localtonet.zip
     - name: Connecting to your Ngrok account.
-      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN }}"
+      run: Start-Process -FilePath ".\localtonet\localtonet.exe" -ArgumentList "authtoken $AUTH_TOKEN"
     - name: Activating RDP access.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
@@ -27,7 +32,7 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Connecting to your RDP.
-      run: cmd /c start.bat ${{ secrets.USERNAME }} ${{ secrets.PASSWORD }}
+      run: cmd /c start.bat $USERNAME $PASSWORD
     - name: RDP is ready!
       run: | 
         Invoke-WebRequest https://raw.githubusercontent.com/bdsoftpro/git-rdp/master/loop.ps1 -OutFile loop.ps1
