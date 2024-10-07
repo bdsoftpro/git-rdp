@@ -1,7 +1,5 @@
 name: Rustdesk Desktop
 env:
-  Root: "C:\\Users\\runneradmin\\Desktop\\software"
-  Prog: "C:\\Program Files\\RustDesk"
   Name: "administrator"
   Pwd:	"Del674569"
 on:
