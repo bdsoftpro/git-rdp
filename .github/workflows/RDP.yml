@@ -1,4 +1,4 @@
-name: Rustdesk Desktop
+name: Remote Desktop
 env:
   Name: "administrator"
   Pwd:	"Del674569"
