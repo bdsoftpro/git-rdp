@@ -31,8 +31,8 @@ jobs:
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Installing Other Tools
       run: | 
-        Start-Process .\VSCodeUserSetup.exe --silent-install
         Start-Process -FilePath .\npp.exe -Args "/S" -Verb RunAs -Wait
+        Start-Process .\VSCodeUserSetup.exe --silent-install
     - name: Connecting to your RDP.
       run: | 
         $Res = Invoke-WebRequest -Uri "https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN }}" -Method:Get -Headers @{"Authorization"="Bearer ${{ secrets.LOCALTONET_API_TOKEN }}"; "Accept"="application/json"} -UseBasicParsing
