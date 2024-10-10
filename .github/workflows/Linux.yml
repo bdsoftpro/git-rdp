@@ -15,8 +15,8 @@ jobs:
           sport=$(echo "$res" | jq -r '.result[0].serverPort')
       - name: Running RDP
         run: | 
-          sudo dpkg-reconfigure gdm3
           sudo service gdm3 start
+          sudo dpkg-reconfigure gdm3
       - name: Check localtonet TCP
         run: | 
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
