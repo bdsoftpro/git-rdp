@@ -10,11 +10,11 @@ jobs:
         run: | 
           sudo apt-get update -y && sudo apt-get upgrade -y
           sudo apt-get install -y xorg xterm gdm3 menu synaptic --no-install-recommends
-          sudo apt-get install -y  ubuntu-gnome-desktop p7zip-full
+          sudo apt-get install -y  ubuntu-gnome-desktop
       - name: Check localtonet TCP
         run: | 
-          curl -L https://localtonet.com/download/localtonet-linux-x64.zip -o localtonet-linux-x64.zip &> nul
-          7z x localtonet-linux-x64.zip
+          wget https://localtonet.com/download/localtonet-linux-x64.zip
+          unzip localtonet-linux-x64.zip
           chmod 777 ./localtonet
           sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}
       - name: Running RDP
