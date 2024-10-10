@@ -11,6 +11,8 @@ jobs:
           sudo apt-get update -y && sudo apt-get upgrade -y
           sudo apt-get install -y xorg xterm gdm3 menu synaptic
           sudo apt-get install -y  ubuntu-gnome-desktop
+          res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
+          sport=$(echo "$res" | jq -r '.result[0].serverPort')
       - name: Running RDP
         run: | 
           sudo dpkg-reconfigure gdm3
@@ -19,7 +21,12 @@ jobs:
         run: | 
           wget https://localtonet.com/download/localtonet-linux-x64.zip
           unzip localtonet-linux-x64.zip
-          chmod 777 ./localtonet
-          sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }} 
+          sudo chmod +x ./localtonet
+          sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }} &
+          Do {
+            response=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
+            cport=$(echo "$response" | jq -r '.result[0].serverPort')
+          } While ($sport -eq $cport)
+          echo "Type $(echo "$response" | jq -r '.result[0].protocolType') => $(echo "$response" | jq -r '.result[0].serverIp'):$(echo "$response" | jq -r '.result[0].serverPort') -> $(echo "$response" | jq -r '.result[0].clientIp'):$(echo "$response" | jq -r '.result[0].clientPort')"
       - name: Running time loop
         run: while :; do sleep 2073600; done
