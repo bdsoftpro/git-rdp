@@ -10,12 +10,10 @@ jobs:
         run: | 
           sudo apt-get update -y > nul
           sudo apt-get upgrade -y > nul
-          sudo apt install -y ubuntu-desktop xrdp
+          sudo apt-get install -y ubuntu-desktop xrdp
           sudo systemctl status xrdp
           res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
           sport=$(echo "$res" | jq -r '.result[0].serverPort')
-      - name: Running RDP
-        run: sudo /etc/init.d/xrdp start
       - name: Check localtonet TCP
         run: | 
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
