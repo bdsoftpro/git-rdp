@@ -29,8 +29,7 @@ jobs:
           res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
           sport=$(echo "$res" | jq -r '.result[0].serverPort')
       - name: Running RDP
-        run: | 
-          sudo service gdm3 start
+        run: sudo /etc/init.d/xrdp start
       - name: Check localtonet TCP
         run: | 
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
