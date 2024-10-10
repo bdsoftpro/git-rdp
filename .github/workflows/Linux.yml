@@ -13,19 +13,22 @@ jobs:
         run: | 
           sudo apt-get update -y &> /dev/null
           sudo apt-get upgrade -y
-          sudo apt-get install -y ubuntu-gnome-desktop xrdp
+          sudo apt-get install -y ubuntu-desktop xrdp
       - name: Setup tmate session
         uses: mxschmitt/action-tmate@v3
       - name: Check localtonet TCP
         run: | 
-          res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
+          res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnels' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
           sport=$(echo "$res" | jq -r '.result[0].serverPort')
+          sudo echo -e "[Service]\nAuthToken=\"$(echo "$response" | jq -r '.result[0].authToken')\"" > /etc/localtonet/localtonet.conf
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
           unzip localtonet-linux-x64.zip
           sudo chmod +x ./localtonet
-          sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }} &
+          sudo cp ./localtonet /usr/sbin/
+          sudo echo -e "[Unit]\nDescription=Localtonet Service\nAfter=network.target\nStartLimitIntervalSec=5\n\n[Service]\nType=notify\nEnvironmentFile=/etc/localtonet/localtonet.conf\nExecStart=/usr/sbin/localtonet authtoken $AuthToken\nExecReload=/bin/pkill -F /var/run/localtonet.pid\nRestart=on-failure\nRestartSec=42s\n\n[Install]\nWantedBy=multi-user.target" > /etc/systemd/system/localtonet.service
+          sudo systemctl start localtonet.service
           while : ; do
-            response=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
+            response=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnels' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
             cport=$(echo "$response" | jq -r '.result[0].serverPort')
             [[ $cport == $sport ]] || break
           done
