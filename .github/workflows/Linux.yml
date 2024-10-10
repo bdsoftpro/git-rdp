@@ -9,17 +9,17 @@ jobs:
       - name: Update and Download Essential Software
         run: | 
           sudo apt-get update -y && sudo apt-get upgrade -y
-          sudo apt-get install -y xorg xterm gdm3 menu synaptic --no-install-recommends
+          sudo apt-get install -y xorg xterm gdm3 menu synaptic
           sudo apt-get install -y  ubuntu-gnome-desktop
+      - name: Running RDP
+        run: | 
+          sudo dpkg-reconfigure gdm3
+          sudo service gdm3 start
       - name: Check localtonet TCP
         run: | 
           wget https://localtonet.com/download/localtonet-linux-x64.zip
           unzip localtonet-linux-x64.zip
           chmod 777 ./localtonet
-          sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}
-      - name: Running RDP
-        run: | 
-          sudo dpkg-reconfigure gdm3
-          sudo service gdm3 start
+          sudo ./localtonet authtoken ${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }} 
       - name: Running time loop
         run: while :; do sleep 2073600; done
