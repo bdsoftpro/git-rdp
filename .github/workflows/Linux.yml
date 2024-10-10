@@ -7,10 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Update and Download Essential Software
-        run: |
-        sudo apt-get update -y
-        sudo apt-get upgrade -y
-        sudo apt-get install -y  ubuntu-gnome-desktop xorg xterm gdm3 menu gksu synaptic p7zip-full
+        run: | 
+          sudo apt-get update -y && sudo apt-get upgrade -y
+          sudo apt-get install -y  ubuntu-gnome-desktop xorg xterm gdm3 menu gksu synaptic p7zip-full
       - name: Check localtonet TCP
         run: | 
           curl -L https://localtonet.com/download/localtonet-linux-x64.zip -o localtonet-linux-x64.zip &> nul
@@ -21,5 +20,4 @@ jobs:
           sudo dpkg-reconfigure gdm3
           sudo service gdm3 start
       - name: Running time loop
-      run: | 
-        while :; do sleep 2073600; done
+        run: while :; do sleep 2073600; done
