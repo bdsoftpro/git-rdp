@@ -12,12 +12,11 @@ jobs:
     - uses: actions/checkout@v4
     - name: Setting the environment up.
       env:
-        AUTH_TOKEN: "4djOsU1JWf5NzgbPKxlpXq2836wnVZkH7"
         VNC_USER_PASSWORD: "Del674569"
         VNC_PASSWORD: "Del674569"
       run: | 
         brew update
-        source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "$AUTH_TOKEN"
+        source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}"
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
     - name: Running time loop
