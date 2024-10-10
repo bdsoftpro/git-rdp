@@ -16,7 +16,6 @@ jobs:
       - name: Running RDP
         run: | 
           sudo service gdm3 start
-          sudo dpkg-reconfigure gdm3
       - name: Check localtonet TCP
         run: | 
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
@@ -27,7 +26,6 @@ jobs:
             response=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnelsByAuthToken/${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
             cport=$(echo "$response" | jq -r '.result[0].serverPort')
             [[ $cport == $sport ]] || break
-            sleep .5
           done
           echo "Type $(echo "$response" | jq -r '.result[0].protocolType') => $(echo "$response" | jq -r '.result[0].serverIp'):$(echo "$response" | jq -r '.result[0].serverPort') -> $(echo "$response" | jq -r '.result[0].clientIp'):$(echo "$response" | jq -r '.result[0].clientPort')"
       - name: Running time loop
