@@ -9,16 +9,7 @@ jobs:
   build:
     runs-on: macos-latest
     steps:
-    - uses: actions/checkout@v4
-    - name: Setting the environment up.
-      env:
-        VNC_USER_PASSWORD: "Del674569"
-        VNC_PASSWORD: "Del674569"
-      run: | 
-        brew update
-        source configure.sh "$VNC_USER_PASSWORD" "$VNC_PASSWORD" "${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}"
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
     - name: Running time loop
-      run: | 
-        while :; do sleep 2073600; done
+      run: while :; do sleep 2073600; done
