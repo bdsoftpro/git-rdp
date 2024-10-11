@@ -3,12 +3,19 @@ on:
   workflow_dispatch:
 defaults:
   run:
-    shell: zsh
+    shell: bash
 
 jobs:
   build:
     runs-on: macos-latest
     steps:
+    - name: Setting the environment up.
+      env:
+        VNC_USER_PASSWORD: "Del674569"
+        VNC_PASSWORD: "Del674569"
+      run: | 
+        brew update
+        source configure.sh "del674569" "del674569" "${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}"
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
     - name: Running time loop
