@@ -20,7 +20,7 @@ sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resourc
 sudo /System/Library/CoreServices/RemoteManagement/ARDAgent.app/Contents/Resources/kickstart -activate
 
 #install ngrok
-curl https://localtonet.com/download/localtonet-osx-64.zip -o osx-64.zip
+wget -q https://localtonet.com/download/localtonet-osx-64.zip -o osx-64.zip
 unzip osx-64.zip
 sudo chmod +x ./localtonet
 
