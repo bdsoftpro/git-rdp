@@ -18,13 +18,13 @@ jobs:
         run: | 
           res=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnels' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
           sport=$(echo "$res" | jq -r '.result[0].serverPort')
-          token=$(echo "$response" | jq -r '.result[0].authToken')
           wget -q https://localtonet.com/download/localtonet-linux-x64.zip
           unzip localtonet-linux-x64.zip
           sudo chmod +x ./localtonet
           sudo mv ./localtonet /usr/sbin/
-          sudo echo -e "[Unit]\nDescription=Localtonet Service\nAfter=network.target\n\n[Service]\nType=simple\nExecStart=/usr/sbin/localtonet authtoken $token\nExecReload=/bin/pkill -F /var/run/localtonet.pid\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" > localtonet.service
+          sudo echo -e "[Unit]\nDescription=Localtonet Service\nAfter=network.target\n\n[Service]\nType=simple\nExecStart=/usr/sbin/localtonet authtoken $(echo "$res" | jq -r '.result[0].authToken')\nExecReload=/bin/pkill -F /var/run/localtonet.pid\nRestart=always\n\n[Install]\nWantedBy=multi-user.target" > localtonet.service
           sudo mkdir -p /etc/systemd/system/ && sudo mv ./localtonet.service /etc/systemd/system/
+          sudo systemctl start localtonet.service
           while : ; do
             response=$(curl -s 'GET' 'https://localtonet.com/api/GetTunnels' -H 'accept: application/json' -H 'Authorization: Bearer ${{ secrets.LOCALTONET_API_TOKEN_INFO }}')
             cport=$(echo "$response" | jq -r '.result[0].serverPort')
