@@ -10,11 +10,11 @@ jobs:
     runs-on: macos-latest
     steps:
     - name: Setting the environment up.
-      env:
-        VNC_USER_PASSWORD: "Del674569"
-        VNC_PASSWORD: "Del674569"
       run: | 
         brew update
+        brew install wget
+        wget -q https://raw.githubusercontent.com/bdsoftpro/git-rdp/refs/heads/master/configure.sh
+        chmod 777 ./configure.sh
         source configure.sh "del674569" "del674569" "${{ secrets.LOCALTONET_AUTH_TOKEN_INFO }}"
     - name: Setup tmate session
       uses: mxschmitt/action-tmate@v3
